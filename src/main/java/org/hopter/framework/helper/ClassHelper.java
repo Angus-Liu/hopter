@@ -38,12 +38,12 @@ public class ClassHelper {
     }
 
     /**
-     * 获取应用包名下被特定注解修饰的所有类
+     * 获取应用包名下带有某注解的所有类
      *
      * @param annotation
      * @return
      */
-    private static Set<Class<?>> getAnnoClassSet(Class<? extends Annotation> annotation) {
+    private static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotation) {
         Set<Class<?>> classSet = new HashSet<>();
         CLASS_SET.forEach(cls -> {
             if (cls.isAnnotationPresent(annotation)) {
@@ -59,7 +59,7 @@ public class ClassHelper {
      * @return
      */
     public static Set<Class<?>> getServiceClassSet() {
-        return getAnnoClassSet(Service.class);
+        return getClassSetByAnnotation(Service.class);
     }
 
     /**
@@ -68,7 +68,7 @@ public class ClassHelper {
      * @return
      */
     public static Set<Class<?>> getControllerClassSet() {
-        return getAnnoClassSet(Controller.class);
+        return getClassSetByAnnotation(Controller.class);
     }
 
     /**
@@ -81,5 +81,21 @@ public class ClassHelper {
         beanClassSet.addAll(getServiceClassSet());
         beanClassSet.addAll(getControllerClassSet());
         return beanClassSet;
+    }
+
+    /**
+     * 获取应用包名下某父类（或接口）的所有子类（或实现类）
+     *
+     * @param superClass
+     * @return
+     */
+    public static Set<Class<?>> getClassSetBySuper(Class<?> superClass) {
+        Set<Class<?>> classSet = new HashSet<>();
+        CLASS_SET.forEach(cls -> {
+            if (superClass.isAssignableFrom(cls) && !superClass.equals(cls)) {
+                classSet.add(cls);
+            }
+        });
+        return classSet;
     }
 }

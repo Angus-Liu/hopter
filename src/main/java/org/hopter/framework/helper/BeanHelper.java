@@ -39,6 +39,17 @@ public class BeanHelper {
     }
 
     /**
+     * 设置 Bean 实例
+     *
+     * @param cls
+     * @param obj
+     */
+    public static void setBean(Class<?> cls, Object obj) {
+        log.debug("Add [{}] to Bean Map: {}", cls, BEAN_MAP.keySet());
+        BEAN_MAP.put(cls, obj);
+    }
+
+    /**
      * 获取 Bean 实例
      *
      * @param cls
