@@ -6,7 +6,7 @@
 
 # :tada: Hopter
 
-Hopter is a simple Java MVC framework.
+Hopter is a lightweight Java MVC framework.
 
 Features:
 
