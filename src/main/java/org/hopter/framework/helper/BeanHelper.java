@@ -26,7 +26,7 @@ public class BeanHelper {
             Object obj = ReflectionUtil.newInstance(beanClass);
             BEAN_MAP.put(beanClass, obj);
         });
-        log.debug("Bean 映射: {}", BEAN_MAP.keySet());
+        log.debug("The bean map: {}", BEAN_MAP.keySet());
     }
 
     /**

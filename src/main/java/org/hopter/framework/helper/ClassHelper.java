@@ -26,7 +26,7 @@ public class ClassHelper {
     static {
         String basePackage = ConfigHelper.getAppBasePackage();
         CLASS_SET = ClassUtil.getClassSet(basePackage);
-        log.debug("所有加载类: {}", CLASS_SET);
+        log.debug("All loaded classes: {}", CLASS_SET);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ClassHelper {
         Set<Class<?>> beanClassSet = new HashSet<>();
         beanClassSet.addAll(getServiceClassSet());
         beanClassSet.addAll(getControllerClassSet());
-        log.debug("所有 Bean 类: {}", beanClassSet);
+        log.debug("All bean classes: {}", beanClassSet);
         return beanClassSet;
     }
 

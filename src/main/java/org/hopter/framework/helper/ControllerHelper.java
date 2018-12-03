@@ -27,7 +27,7 @@ public class ControllerHelper {
     static {
         // 获取所有的 Controller 类
         Set<Class<?>> controllerClassSet = ClassHelper.getControllerClassSet();
-        log.debug("获取所有 Controller 类: {}", controllerClassSet);
+        log.debug("All controllers: {}", controllerClassSet);
         controllerClassSet.forEach(controllerClass -> {
             // 获取 Controller 类中定义的方法
             Method[] methods = controllerClass.getDeclaredMethods();
@@ -41,7 +41,7 @@ public class ControllerHelper {
                     // 根据 URL 配置相应的请求与处理器
                     Request request = new Request(requestMethod, requestPath);
                     Handler handler = new Handler(controllerClass, method);
-                    log.info("将 HTTP 请求 [{}:{}] 映射到 [{}:{}] 方法", requestMethod.getName(), requestPath, controllerClass.getName(), method.getName());
+                    log.info("Mapping HTTP action [{}:{}] to [{}:{}] method", requestMethod.getName(), requestPath, controllerClass.getName(), method.getName());
                     // 初始化 Action map
                     ACTION_MAP.put(request, handler);
                 }

@@ -28,7 +28,7 @@ public class AopHelper {
                 // 通过 ProxyManager.createProxy 方法获取代理对象，并放入 Bean Map 中
                 Object proxy = ProxyManager.createProxy(targetClass, proxyList);
                 BeanHelper.setBean(targetClass, proxy);
-                log.debug("为目标类 [{}] 注入代理对象 [{}]", targetClass.getName(), proxy);
+                log.debug("Inject target class [{}] with proxy object [{}]", targetClass.getName(), proxy);
             });
         } catch (Throwable e) {
             log.error("aop failure", e);
@@ -63,7 +63,7 @@ public class AopHelper {
     private static Map<Class<?>, Set<Class<?>>> createProxyMap() {
         Map<Class<?>, Set<Class<?>>> proxyMap = new HashMap<>();
         Set<Class<?>> proxyClassSet = ClassHelper.getClassSetBySuper(AspectProxy.class);
-        log.debug("所有代理类: {}", proxyClassSet);
+        log.debug("Proxy class set: {}", proxyClassSet);
         proxyClassSet.forEach(proxyClass -> {
             if (proxyClass.isAnnotationPresent(Aspect.class)) {
                 Aspect aspect = proxyClass.getAnnotation(Aspect.class);
@@ -71,7 +71,7 @@ public class AopHelper {
                 proxyMap.put(proxyClass, targetClassSet);
             }
         });
-        log.debug("代理类与目标类映射: {}", proxyMap);
+        log.debug("The map of proxy class and target classes: {}", proxyMap);
         return proxyMap;
     }
 
@@ -94,7 +94,7 @@ public class AopHelper {
                 targetMap.put(targetClass, proxyList);
             }
         }
-        log.debug("目标类与代理对象映射: {}", targetMap);
+        log.debug("The map of target class and proxy objects: {}", targetMap);
         return targetMap;
     }
 
