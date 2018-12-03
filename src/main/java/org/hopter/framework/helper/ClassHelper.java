@@ -26,6 +26,7 @@ public class ClassHelper {
     static {
         String basePackage = ConfigHelper.getAppBasePackage();
         CLASS_SET = ClassUtil.getClassSet(basePackage);
+        log.debug("所有加载类: {}", CLASS_SET);
     }
 
     /**
@@ -43,7 +44,7 @@ public class ClassHelper {
      * @param annotation
      * @return
      */
-    private static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotation) {
+    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotation) {
         Set<Class<?>> classSet = new HashSet<>();
         CLASS_SET.forEach(cls -> {
             if (cls.isAnnotationPresent(annotation)) {
@@ -80,6 +81,7 @@ public class ClassHelper {
         Set<Class<?>> beanClassSet = new HashSet<>();
         beanClassSet.addAll(getServiceClassSet());
         beanClassSet.addAll(getControllerClassSet());
+        log.debug("所有 Bean 类: {}", beanClassSet);
         return beanClassSet;
     }
 

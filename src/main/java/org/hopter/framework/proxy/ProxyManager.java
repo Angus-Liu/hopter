@@ -1,5 +1,6 @@
 package org.hopter.framework.proxy;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author Angus
  * @date 2018/12/2
  */
-
+@Slf4j
 public class ProxyManager {
 
     @SuppressWarnings("unchecked")

@@ -27,7 +27,7 @@ public class IocHelper {
                     // 在 Bean Map 中获取 Bean Field 对应的实例
                     Class<?> beanFieldClass = beanField.getType();
                     Object beanFieldInstance = beanMap.get(beanFieldClass);
-                    log.debug("Auto inject [{}.{}] with [{}]",
+                    log.debug("为 [{}.{}] 注入 [{}]",
                             beanClass.getName(), beanField.getName(), beanFieldInstance);
                     if (beanFieldInstance != null) {
                         // 通过反射初始化 Bean Filed 的值

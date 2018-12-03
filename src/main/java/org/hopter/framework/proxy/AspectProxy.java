@@ -22,7 +22,7 @@ public abstract class AspectProxy implements Proxy {
      * @throws Throwable
      */
     @Override
-    public Object doProxy(ProxyChain proxyChain) throws Throwable {
+    public final Object doProxy(ProxyChain proxyChain) throws Throwable {
         Object result;
 
         Class<?> cls = proxyChain.getTargetClass();
