@@ -12,4 +12,4 @@ Features:
 
 - [x] IoC
 - [x] MVC
-- [ ] AOP
+- [x] AOP

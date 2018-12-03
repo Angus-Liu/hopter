@@ -28,7 +28,7 @@ public class AopHelper {
                 // 通过 ProxyManager.createProxy 方法获取代理对象，并放入 Bean Map 中
                 Object proxy = ProxyManager.createProxy(targetClass, proxyList);
                 BeanHelper.setBean(targetClass, proxy);
-                log.debug("为目标类 {} 注入代理对象 {}", targetClass, proxy);
+                log.debug("为目标类 [{}] 注入代理对象 [{}]", targetClass.getName(), proxy);
             });
         } catch (Throwable e) {
             log.error("aop failure", e);
