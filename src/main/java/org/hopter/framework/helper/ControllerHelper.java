@@ -18,7 +18,7 @@ import java.util.Set;
  * @date 2018/11/29
  */
 @Slf4j
-public class ControllerHelper {
+public final class ControllerHelper {
     /**
      * 用于存放请求与处理器的映射关系（Action Map）
      */

@@ -16,7 +16,7 @@ import java.util.Set;
  * @date 2018/11/29
  */
 @Slf4j
-public class ClassHelper {
+public final class ClassHelper {
 
     /**
      * 定义类集合（用于存放所加载的类）

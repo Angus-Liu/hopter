@@ -5,6 +5,7 @@ import org.hopter.framework.annotation.Aspect;
 import org.hopter.framework.proxy.AspectProxy;
 import org.hopter.framework.proxy.Proxy;
 import org.hopter.framework.proxy.ProxyManager;
+import org.hopter.framework.proxy.TransactionProxy;
 
 import java.lang.annotation.Annotation;
 import java.util.*;
@@ -16,7 +17,7 @@ import java.util.*;
  * @date 2018/12/3
  */
 @Slf4j
-public class AopHelper {
+public final class AopHelper {
 
     static {
         try {
@@ -62,6 +63,27 @@ public class AopHelper {
      */
     private static Map<Class<?>, Set<Class<?>>> createProxyMap() {
         Map<Class<?>, Set<Class<?>>> proxyMap = new HashMap<>();
+        addAspectProxy(proxyMap);
+        addTransactionProxy(proxyMap);
+        return proxyMap;
+    }
+
+    /**
+     * 添加事务代理类及服务类之间的映射关系
+     *
+     * @param proxyMap
+     */
+    public static void addTransactionProxy(Map<Class<?>, Set<Class<?>>> proxyMap) {
+        Set<Class<?>> serviceClassSet = ClassHelper.getServiceClassSet();
+        proxyMap.put(TransactionProxy.class, serviceClassSet);
+    }
+
+    /**
+     * 添加普通切面代理类及其目标类之间的映射关系
+     *
+     * @param proxyMap
+     */
+    private static void addAspectProxy(Map<Class<?>, Set<Class<?>>> proxyMap) {
         Set<Class<?>> proxyClassSet = ClassHelper.getClassSetBySuper(AspectProxy.class);
         log.debug("Proxy class set: {}", proxyClassSet);
         proxyClassSet.forEach(proxyClass -> {
@@ -72,7 +94,6 @@ public class AopHelper {
             }
         });
         log.debug("The map of proxy class and target classes: {}", proxyMap);
-        return proxyMap;
     }
 
     /**

@@ -11,7 +11,7 @@ import java.util.Properties;
  * @author Angus
  * @date 2018/11/29
  */
-public class ConfigHelper {
+public final class ConfigHelper {
 
     private static final Properties CONFIG_PROPS = PropsUtil.loadProps(ConfigConstant.CONFIG_FILE);
 

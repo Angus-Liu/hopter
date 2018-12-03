@@ -14,7 +14,7 @@ import java.util.Map;
  * @date 2018/11/29
  */
 @Slf4j
-public class IocHelper {
+public final class IocHelper {
     static {
         // 获取所有的 Bean 类与 Bean 实例之间的映射关系（Bean Map）
         Map<Class<?>, Object> beanMap = BeanHelper.getBeanMap();
