@@ -6,7 +6,6 @@ import java.lang.reflect.Method;
 
 /**
  * 切面代理
- * 模式：模板方法
  *
  * @author Angus
  * @date 2018/12/2

@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * 代理链
- * 模式：职责链
  *
  * @author Angus
  * @date 2018/12/2
