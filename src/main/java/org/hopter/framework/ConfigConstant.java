@@ -26,4 +26,5 @@ public interface ConfigConstant {
     String APP_BASE_PACKAGE = "hopter.app.base-package";
     String APP_JSP_PATH = "hopter.app.jsp-path";
     String APP_ASSET_PATH = "hopter.app.asset-path";
+    String APP_UPLOAD_LIMIT = "hopter.app.upload-limit";
 }
