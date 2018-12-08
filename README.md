@@ -7,6 +7,7 @@
 # :tada: Hopter
 
 Hopter is a lightweight Java MVC framework.
+> reference: [《架构探险》](https://book.douban.com/subject/26593466/)
 
 Features:
 
@@ -15,3 +16,4 @@ Features:
 - [x] AOP
 - [x] Transaction
 - [x] File upload
+- [ ] Security
