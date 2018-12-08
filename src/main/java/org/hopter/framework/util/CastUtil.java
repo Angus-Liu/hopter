@@ -1,14 +1,12 @@
 package org.hopter.framework.util;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * 转型操作工具类
  *
  * @author Angus
  * @date 2018/11/29
  */
-public class CastUtil {
+public final class CastUtil {
     /**
      * 转为 String 型
      *
@@ -51,7 +49,7 @@ public class CastUtil {
         double doubleValue = defaultValue;
         if (obj != null) {
             String strValue = castString(obj);
-            if (StringUtils.isNotBlank(strValue)) {
+            if (StringUtil.isNotEmpty(strValue)) {
                 try {
                     doubleValue = Double.parseDouble(strValue);
                 } catch (NumberFormatException e) {
@@ -83,7 +81,7 @@ public class CastUtil {
         long loneValue = defaultValue;
         if (obj != null) {
             String strValue = castString(obj);
-            if (StringUtils.isNotBlank(strValue)) {
+            if (StringUtil.isNotEmpty(strValue)) {
                 try {
                     loneValue = Long.parseLong(strValue);
                 } catch (NumberFormatException e) {
@@ -115,7 +113,7 @@ public class CastUtil {
         int intValue = defaultValue;
         if (obj != null) {
             String strValue = castString(obj);
-            if (StringUtils.isNotBlank(strValue)) {
+            if (StringUtil.isNotEmpty(strValue)) {
                 try {
                     intValue = Integer.parseInt(strValue);
                 } catch (NumberFormatException e) {

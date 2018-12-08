@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  * @date 2018/11/29
  */
 @Slf4j
-public class ReflectionUtil {
+public final class ReflectionUtil {
 
     /**
      * 创建实例

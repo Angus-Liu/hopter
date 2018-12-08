@@ -3,8 +3,6 @@ package org.hopter.framework.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
-
 /**
  * JSON 工具类
  *
@@ -12,7 +10,7 @@ import java.io.IOException;
  * @date 2018/12/1
  */
 @Slf4j
-public class JsonUtil {
+public final class JsonUtil {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public static <T> String toJson(T obj) {

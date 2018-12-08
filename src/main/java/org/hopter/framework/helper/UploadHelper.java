@@ -2,22 +2,19 @@ package org.hopter.framework.helper;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.hopter.framework.bean.FileParam;
 import org.hopter.framework.bean.FormParam;
 import org.hopter.framework.bean.Param;
+import org.hopter.framework.util.FileUtil;
+import org.hopter.framework.util.StreamUtil;
+import org.hopter.framework.util.StringUtil;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,13 +34,15 @@ public final class UploadHelper {
     private static ServletFileUpload servletFileUpload;
 
     /**
-     * 初始化
+     * 初始化 ServletFileUpload 对象，设置上传文件的临时目录和上传文件的最大限制
      *
      * @param servletContext
      */
     public static void init(ServletContext servletContext) {
+        // 上传文件的临时目录设置为应用服务器的临时目录
         File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
         servletFileUpload = new ServletFileUpload(new DiskFileItemFactory(DiskFileItemFactory.DEFAULT_SIZE_THRESHOLD, repository));
+        // 上传文件的最大限制由用户提供
         int uploadLimit = ConfigHelper.getAppUploadLimit();
         if (uploadLimit != 0) {
             servletFileUpload.setFileSizeMax(uploadLimit * 1024 * 1024);
@@ -51,7 +50,7 @@ public final class UploadHelper {
     }
 
     /**
-     * 判断请求是否为 multipart 类型
+     * 判断请求是否为 multipart 类型（只有上传文件时对应的请求类型才是 multipart 类型）
      *
      * @param request
      * @return
@@ -60,12 +59,19 @@ public final class UploadHelper {
         return ServletFileUpload.isMultipartContent(request);
     }
 
+    /**
+     * 从当前请求中创建 Param 对象
+     *
+     * @param request
+     * @return
+     */
     public static Param createParam(HttpServletRequest request) {
         List<FormParam> formParamList = new ArrayList<>();
         List<FileParam> fileParamList = new ArrayList<>();
         try {
+            // 使用 ServletFileUpload 对象解析请求参数
             Map<String, List<FileItem>> fileItemListMap = servletFileUpload.parseParameterMap(request);
-            for(Map.Entry<String, List<FileItem>> fileItemListEntry : fileItemListMap.entrySet()) {
+            for (Map.Entry<String, List<FileItem>> fileItemListEntry : fileItemListMap.entrySet()) {
                 String fieldName = fileItemListEntry.getKey();
                 List<FileItem> fileItemList = fileItemListEntry.getValue();
                 if (CollectionUtils.isNotEmpty(fileItemList)) {
@@ -75,7 +81,7 @@ public final class UploadHelper {
                             formParamList.add(new FormParam(fieldName, fieldValue));
                         } else {
                             String fileName = FileUtil.getRealFileName(new String(fileItem.getName().getBytes(), "UTF-8"));
-                            if (StringUtils.isNotEmpty(fileName)) {
+                            if (StringUtil.isNotEmpty(fileName)) {
                                 long fileSize = fileItem.getSize();
                                 String contentType = fileItem.getContentType();
                                 InputStream inputStream = fileItem.getInputStream();
@@ -92,4 +98,34 @@ public final class UploadHelper {
         return new Param(formParamList, fileParamList);
     }
 
+    /**
+     * 上传文件
+     *
+     * @param basePath
+     * @param fileParam
+     */
+    public static void uploadFile(String basePath, FileParam fileParam) {
+        try {
+            if (fileParam != null) {
+                String filePath = basePath + fileParam.getFileName();
+                FileUtil.createFile(filePath);
+                InputStream inputStream = new BufferedInputStream(fileParam.getInputStream());
+                OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(filePath));
+                StreamUtil.copyStream(inputStream, outputStream);
+            }
+        } catch (Exception e) {
+            log.error("upload file failure", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 批量上传文件
+     *
+     * @param basePath
+     * @param fileParamList
+     */
+    public static void uploadFile(String basePath, List<FileParam> fileParamList) {
+        fileParamList.forEach(fileParam -> uploadFile(basePath, fileParam));
+    }
 }

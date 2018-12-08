@@ -1,13 +1,10 @@
 package org.hopter.framework.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.net.JarURLConnection;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +19,7 @@ import java.util.jar.JarFile;
  * @date 2018/11/29
  */
 @Slf4j
-public class ClassUtil {
+public final class ClassUtil {
 
     /**
      * 获取类加载器
@@ -110,17 +107,17 @@ public class ClassUtil {
             if (file.isFile()) {
                 // 去掉文件后缀名
                 String className = fileName.substring(0, fileName.lastIndexOf("."));
-                if (StringUtils.isNotBlank(packageName)) {
+                if (StringUtil.isNotEmpty(packageName)) {
                     className = packageName + "." + className;
                 }
                 doAddClass(classSet, className);
             } else {
                 String subPackagePath = fileName;
-                if (StringUtils.isNotBlank(packagePath)) {
+                if (StringUtil.isNotEmpty(packagePath)) {
                     subPackagePath = packagePath + "/" + subPackagePath;
                 }
                 String subPackageName = fileName;
-                if (StringUtils.isNotBlank(packageName)) {
+                if (StringUtil.isNotEmpty(packageName)) {
                     subPackageName = packageName + "." + subPackageName;
                 }
                 addClass(classSet, subPackagePath, subPackageName);

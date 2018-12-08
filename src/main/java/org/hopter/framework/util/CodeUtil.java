@@ -2,7 +2,6 @@ package org.hopter.framework.util;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
@@ -13,7 +12,7 @@ import java.net.URLEncoder;
  * @date 2018/12/1
  */
 @Slf4j
-public class CodeUtil {
+public final class CodeUtil {
 
     /**
      * 将 URL 编码
