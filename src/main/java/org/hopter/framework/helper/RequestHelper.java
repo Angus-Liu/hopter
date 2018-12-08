@@ -1,5 +1,6 @@
 package org.hopter.framework.helper;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hopter.framework.bean.FormParam;
 import org.hopter.framework.bean.Param;
 import org.hopter.framework.util.ArrayUtil;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author Angus
  * @date 2018/12/8
  */
+@Slf4j
 public final class RequestHelper {
 
     /**
@@ -29,6 +31,7 @@ public final class RequestHelper {
      * @throws IOException
      */
     public static Param createParam(HttpServletRequest request) throws IOException {
+        log.debug("common request...");
         List<FormParam> formParamList = new ArrayList<>();
         formParamList.addAll(parseParameterNames(request));
         formParamList.addAll(parseInputStream(request));

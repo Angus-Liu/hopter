@@ -14,4 +14,4 @@ Features:
 - [x] MVC
 - [x] AOP
 - [x] Transaction
-- [ ] File upload
+- [x] File upload

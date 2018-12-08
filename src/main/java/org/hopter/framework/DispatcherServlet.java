@@ -1,5 +1,6 @@
 package org.hopter.framework;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hopter.framework.bean.Data;
 import org.hopter.framework.bean.Handler;
 import org.hopter.framework.bean.Param;
@@ -29,6 +30,7 @@ import java.util.Map;
  * @author Angus
  * @date 2018/11/30
  */
+@Slf4j
 @WebServlet(urlPatterns = "/*", loadOnStartup = 0)
 public class DispatcherServlet extends HttpServlet {
     @Override

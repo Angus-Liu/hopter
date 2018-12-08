@@ -41,6 +41,7 @@ public final class UploadHelper {
     public static void init(ServletContext servletContext) {
         // 上传文件的临时目录设置为应用服务器的临时目录
         File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+        log.debug("Repository: {}", repository);
         servletFileUpload = new ServletFileUpload(new DiskFileItemFactory(DiskFileItemFactory.DEFAULT_SIZE_THRESHOLD, repository));
         // 上传文件的最大限制由用户提供
         int uploadLimit = ConfigHelper.getAppUploadLimit();
@@ -66,6 +67,7 @@ public final class UploadHelper {
      * @return
      */
     public static Param createParam(HttpServletRequest request) {
+        log.debug("upload file request...");
         List<FormParam> formParamList = new ArrayList<>();
         List<FileParam> fileParamList = new ArrayList<>();
         try {
