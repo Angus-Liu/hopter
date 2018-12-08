@@ -51,41 +51,48 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 获取请求方法与请求路径
-        RequestMethod requestMethod = RequestMethod.of(request.getMethod().toLowerCase());
-        String requestPath = request.getPathInfo();
-        if ("/favicon.ico".equals(requestPath)) {
-            return;
-        }
-        // 获取 Action 处理器
-        Handler handler = ControllerHelper.getHandler(requestMethod, requestPath);
-        if (handler != null) {
-            // 获取 Controller 类及其 Bean 实例
-            Class<?> controllerClass = handler.getControllerClass();
-            Object controllerBean = BeanHelper.getBean(controllerClass);
-            // 创建请求参数对象
-            Param param;
-            if (UploadHelper.isMultipart(request)) {
-                param = UploadHelper.createParam(request);
-            } else {
-                param = RequestHelper.createParam(request);
+        // 初始化 ServletHelper
+        ServletHelper.init(request, response);
+        try {
+            // 获取请求方法与请求路径
+            RequestMethod requestMethod = RequestMethod.of(request.getMethod().toLowerCase());
+            String requestPath = request.getPathInfo();
+            if ("/favicon.ico".equals(requestPath)) {
+                return;
             }
-            // 调用 Action 方法
-            Object result;
-            Method actionMethod = handler.getActionMethod();
-            if (param.isEmpty()) {
-                result = ReflectionUtil.invokeMethod(controllerBean, actionMethod);
-            } else {
-                result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
+            // 获取 Action 处理器
+            Handler handler = ControllerHelper.getHandler(requestMethod, requestPath);
+            if (handler != null) {
+                // 获取 Controller 类及其 Bean 实例
+                Class<?> controllerClass = handler.getControllerClass();
+                Object controllerBean = BeanHelper.getBean(controllerClass);
+                // 创建请求参数对象
+                Param param;
+                if (UploadHelper.isMultipart(request)) {
+                    param = UploadHelper.createParam(request);
+                } else {
+                    param = RequestHelper.createParam(request);
+                }
+                // 调用 Action 方法
+                Object result;
+                Method actionMethod = handler.getActionMethod();
+                if (param.isEmpty()) {
+                    result = ReflectionUtil.invokeMethod(controllerBean, actionMethod);
+                } else {
+                    result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
+                }
+                // 处理 Action 方法返回值
+                if (result instanceof View) {
+                    // 返回 JSP 页面
+                    handleViewResult((View) result, request, response);
+                } else if (result instanceof Data) {
+                    // 返回 JSON 数据
+                    handleDataResult((Data) result, request, response);
+                }
             }
-            // 处理 Action 方法返回值
-            if (result instanceof View) {
-                // 返回 JSP 页面
-                handleViewResult((View) result, request, response);
-            } else if (result instanceof Data) {
-                // 返回 JSON 数据
-                handleDataResult((Data) result, request, response);
-            }
+        } finally {
+            // 销毁 ServletHelper
+            ServletHelper.destroy();
         }
     }
 

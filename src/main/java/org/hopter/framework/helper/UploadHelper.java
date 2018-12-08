@@ -67,7 +67,7 @@ public final class UploadHelper {
      * @return
      */
     public static Param createParam(HttpServletRequest request) {
-        log.debug("upload file request...");
+        log.debug("Upload file request...");
         List<FormParam> formParamList = new ArrayList<>();
         List<FileParam> fileParamList = new ArrayList<>();
         try {

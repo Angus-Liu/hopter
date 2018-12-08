@@ -154,4 +154,12 @@ public class Param {
     public boolean getBoolean(String name) {
         return CastUtil.castBoolean(getFieldMap().get(name));
     }
+
+    @Override
+    public String toString() {
+        return "Param{" +
+                "formParamList=" + formParamList +
+                ", fileParamList=" + fileParamList +
+                '}';
+    }
 }

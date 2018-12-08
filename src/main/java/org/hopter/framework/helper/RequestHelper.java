@@ -31,7 +31,7 @@ public final class RequestHelper {
      * @throws IOException
      */
     public static Param createParam(HttpServletRequest request) throws IOException {
-        log.debug("common request...");
+        log.debug("Common request...");
         List<FormParam> formParamList = new ArrayList<>();
         formParamList.addAll(parseParameterNames(request));
         formParamList.addAll(parseInputStream(request));
