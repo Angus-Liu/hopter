@@ -4,11 +4,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.*;
+import org.hopter.framework.util.ClassUtil;
 import org.hopter.framework.util.CollectionUtil;
 
 import javax.sql.DataSource;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -313,7 +319,7 @@ public final class DatabaseHelper {
             return false;
         }
 
-        String sql = "INSERT INTO" + entityClass.getSimpleName();
+        String sql = "INSERT INTO " + entityClass.getSimpleName();
         StringBuilder columns = new StringBuilder("(");
         StringBuilder values = new StringBuilder("(");
         fieldMap.keySet().forEach(fieldName -> {
@@ -327,5 +333,67 @@ public final class DatabaseHelper {
         Object[] params = fieldMap.values().toArray();
 
         return update(sql, params) == 1;
+    }
+
+    /**
+     * 更新实体
+     *
+     * @param entityClass
+     * @param id
+     * @param fieldMap
+     * @param <T>
+     * @return
+     */
+    public static <T> boolean updateEntity(Class<T> entityClass, long id, Map<String, Object> fieldMap) {
+        if (CollectionUtil.isEmpty(fieldMap)) {
+            log.error("can not update entity: fieldMap is empty");
+            return false;
+        }
+
+        String sql = "UPDATE " + entityClass.getSimpleName() + " SET ";
+        StringBuilder columns = new StringBuilder();
+        fieldMap.keySet().forEach(fieldName -> {
+            columns.append(fieldName).append(" = ?, ");
+        });
+        sql += columns.substring(0, columns.lastIndexOf(", ")) + " WHERE id = ?";
+
+        List<Object> paramList = new ArrayList<>();
+        paramList.addAll(fieldMap.values());
+        paramList.add(id);
+        Object[] params = paramList.toArray();
+
+        return update(sql, params) == 1;
+    }
+
+    /**
+     * 删除实体
+     *
+     * @param entityClass
+     * @param id
+     * @param <T>
+     * @return
+     */
+    public static <T> boolean deleteEntity(Class<T> entityClass, long id) {
+        String sql = "DELETE FROM " + entityClass.getSimpleName() + " WHERE id = ?";
+        return update(sql, id) == 1;
+    }
+
+    /**
+     * 执行 SQL 文件
+     *
+     * @param filePath
+     */
+    public static void executeSqlFile(String filePath) {
+        InputStream is = ClassUtil.getClassLoader().getResourceAsStream(filePath);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        try {
+            String sql;
+            while ((sql = reader.readLine()) != null) {
+                update(sql);
+            }
+        } catch (Exception e) {
+            log.error("execute sql file failure", e);
+            throw new RuntimeException(e);
+        }
     }
 }
