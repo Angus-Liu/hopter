@@ -13,9 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 数据库操作助手类
@@ -207,6 +205,19 @@ public final class DatabaseHelper {
             throw new RuntimeException(e);
         }
         return list;
+    }
+
+    /**
+     * 查询并返回多个列值（具有唯一性）
+     *
+     * @param sql
+     * @param params
+     * @param <T>
+     * @return
+     */
+    public static <T> Set<T> querySet(String sql, Object... params) {
+        Collection<T> valueList = queryList(sql, params);
+        return new LinkedHashSet<>(valueList);
     }
 
     /**
