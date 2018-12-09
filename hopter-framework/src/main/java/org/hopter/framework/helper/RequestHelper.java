@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hopter.framework.bean.FormParam;
 import org.hopter.framework.bean.Param;
 import org.hopter.framework.util.ArrayUtil;
-import org.hopter.framework.util.CodeUtil;
+import org.hopter.framework.util.CodecUtil;
 import org.hopter.framework.util.StreamUtil;
 import org.hopter.framework.util.StringUtil;
 
@@ -66,7 +66,7 @@ public final class RequestHelper {
 
     private static List<FormParam> parseInputStream(HttpServletRequest request) throws IOException {
         List<FormParam> formParamList = new ArrayList<>();
-        String body = CodeUtil.decodeURL(StreamUtil.getString(request.getInputStream()));
+        String body = CodecUtil.decodeURL(StreamUtil.getString(request.getInputStream()));
         if (StringUtil.isNotEmpty(body)) {
             String[] kvs = StringUtil.splitString(body, "&");
             if (ArrayUtil.isNotEmpty(kvs)) {
