@@ -9,7 +9,6 @@ import org.hopter.framework.util.CollectionUtil;
 
 import javax.sql.DataSource;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
