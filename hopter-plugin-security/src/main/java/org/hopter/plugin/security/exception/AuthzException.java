@@ -6,20 +6,20 @@ package org.hopter.plugin.security.exception;
  * @author Angus
  * @date 2018/12/9
  */
-public class AuthzExecption extends Exception {
+public class AuthzException extends RuntimeException {
 
-    public AuthzExecption() {
+    public AuthzException() {
     }
 
-    public AuthzExecption(String message) {
+    public AuthzException(String message) {
         super(message);
     }
 
-    public AuthzExecption(String message, Throwable cause) {
+    public AuthzException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public AuthzExecption(Throwable cause) {
+    public AuthzException(Throwable cause) {
         super(cause);
     }
 }

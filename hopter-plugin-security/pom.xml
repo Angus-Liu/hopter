@@ -8,6 +8,10 @@
     <artifactId>hopter-plugin-security</artifactId>
     <version>1.0.0</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
         <!-- Servlet -->
         <dependency>

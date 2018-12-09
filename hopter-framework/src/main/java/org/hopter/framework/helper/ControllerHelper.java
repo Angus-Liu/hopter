@@ -41,7 +41,7 @@ public final class ControllerHelper {
                     // 根据 URL 配置相应的请求与处理器
                     Request request = new Request(requestMethod, requestPath);
                     Handler handler = new Handler(controllerClass, method);
-                    log.info("Mapping HTTP action [{}:{}] to [{}:{}] method", requestMethod.getName(), requestPath, controllerClass.getName(), method.getName());
+                    log.info("Mapping HTTP action [{}:{}] to [{}:{}] method", requestMethod.getName().toUpperCase(), requestPath, controllerClass.getName(), method.getName());
                     // 初始化 Action map
                     ACTION_MAP.put(request, handler);
                 }
