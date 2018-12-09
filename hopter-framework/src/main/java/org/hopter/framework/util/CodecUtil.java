@@ -1,6 +1,7 @@
 package org.hopter.framework.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -12,7 +13,7 @@ import java.net.URLEncoder;
  * @date 2018/12/1
  */
 @Slf4j
-public final class CodeUtil {
+public final class CodecUtil {
 
     /**
      * 将 URL 编码
@@ -37,7 +38,7 @@ public final class CodeUtil {
      * @param source
      * @return
      */
-    public static  String decodeURL(String source) {
+    public static String decodeURL(String source) {
         String target;
         try {
             target = URLDecoder.decode(source, "UTF-8");
@@ -46,5 +47,15 @@ public final class CodeUtil {
             throw new RuntimeException(e);
         }
         return target;
+    }
+
+    /**
+     * MD5 加密
+     *
+     * @param source
+     * @return
+     */
+    public static String md5(String source) {
+        return DigestUtils.md5Hex(source);
     }
 }
