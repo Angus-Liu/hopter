@@ -14,9 +14,11 @@ Hopter is a lightweight Java MVC framework.
 - [x] AOP
 - [x] Transaction
 - [x] File upload
-- [ ] Security
+- [x] Security
+- [ ] SOAP
+- [ ] REST
 
 ## Acknowledgments
 
-> 参考自书籍 [《架构探险》](https://book.douban.com/subject/26593466/)，Hopter 的第一版基本就是书中 Smart Framework 的翻版，后续会不断改进。
+> 参考自书籍 [《架构探险》](https://book.douban.com/subject/26593466/)，Hopter 的第一版基本就是书中 Smart Framework 的翻版，后续会不断改进，在原框架上加入新的特性。
 
