@@ -15,8 +15,8 @@ Hopter is a lightweight Java MVC framework.
 - [x] Transaction
 - [x] File upload
 - [x] Security
-- [ ] SOAP
-- [ ] REST
+- [x] SOAP
+- [x] REST
 
 ## Acknowledgments
 
