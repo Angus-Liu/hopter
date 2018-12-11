@@ -8,8 +8,8 @@ import java.lang.annotation.Target;
 /**
  * REST 服务注解
  *
- * @author huangyong
- * @since 1.0.0
+ * @author Angus
+ * @date 2018/12/11
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
