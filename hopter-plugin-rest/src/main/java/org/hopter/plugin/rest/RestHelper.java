@@ -57,7 +57,12 @@ public class RestHelper {
         }
     }
 
-    // 发布 REST 服务
+    /**
+     * 发布 REST 服务
+     *
+     * @param wadl
+     * @param resourceClass
+     */
     public static void publishService(String wadl, Class<?> resourceClass) {
         JAXRSServerFactoryBean factory = new JAXRSServerFactoryBean();
         factory.setAddress(wadl);
@@ -69,7 +74,14 @@ public class RestHelper {
         factory.create();
     }
 
-    // 创建 REST 客户端
+    /**
+     * 创建 REST 客户端
+     *
+     * @param wadl
+     * @param resourceClass
+     * @param <T>
+     * @return
+     */
     public static <T> T createClient(String wadl, Class<? extends T> resourceClass) {
         return JAXRSClientFactory.create(wadl, resourceClass, providerList);
     }
