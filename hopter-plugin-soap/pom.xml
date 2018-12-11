@@ -38,6 +38,12 @@
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
             <version>${version.cxf}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-features-logging</artifactId>
+            <version>${version.cxf}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
