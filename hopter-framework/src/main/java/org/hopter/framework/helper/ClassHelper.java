@@ -19,13 +19,19 @@ import java.util.Set;
 public final class ClassHelper {
 
     /**
+     * 框架基础包名
+     */
+    private static final String FRAMEWORK_PACKAGE = "org.hopter";
+
+    /**
      * 定义类集合（用于存放所加载的类）
      */
     private static final Set<Class<?>> CLASS_SET;
 
     static {
         String basePackage = ConfigHelper.getAppBasePackage();
-        CLASS_SET = ClassUtil.getClassSet(basePackage);
+        CLASS_SET = ClassUtil.getClassSet(FRAMEWORK_PACKAGE);
+        CLASS_SET.addAll(ClassUtil.getClassSet(basePackage));
         log.debug("All loaded classes: {}", CLASS_SET);
     }
 
