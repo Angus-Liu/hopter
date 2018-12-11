@@ -55,7 +55,7 @@ public class RestServlet extends CXFNonSpringServlet {
         if (!address.startsWith("/")) {
             address = "/" + address;
         }
-        address = address.replaceAll("\\/+", "/");
+        address = address.replaceAll("/+", "/");
         return address;
     }
 }
