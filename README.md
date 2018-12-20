@@ -4,7 +4,7 @@
     <img src="assets/hopter-logo.png" width="200"/>
 </div>
 
-# :tada: Hopter（竹蜻蜓）
+# :helicopter: Hopter（竹蜻蜓）
 
 Hopter is a lightweight Java MVC framework.
 ## Features
