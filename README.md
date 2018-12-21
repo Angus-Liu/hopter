@@ -1,7 +1,7 @@
 
 
 <div align="center">
-    <img src="assets/hopter-logo.png" width="280" align="right"/>
+    <img src="assets/hopter-logo.png" width="250" align="right"/>
 </div>
 
 
