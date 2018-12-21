@@ -1,8 +1,9 @@
 
 
 <div align="center">
-    <img src="assets/hopter-logo.png" width="200" align="right"/>
+    <img src="assets/hopter-logo.png" width="280" align="right"/>
 </div>
+
 
 
 # :helicopter: Hopter（竹蜻蜓）
